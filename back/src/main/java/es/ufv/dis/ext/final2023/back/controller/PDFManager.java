@@ -9,9 +9,7 @@ import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
-import java.io.File;
 import java.io.FileOutputStream;
-import java.nio.file.Paths;
 import java.util.List;
 
 public class PDFManager {
@@ -33,6 +31,28 @@ public class PDFManager {
             p.setAlignment(Element.ALIGN_JUSTIFIED);
             doc.add(p);
             doc.close();
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
+    public void generarPDF_indiv(List<Producto> productoList){
+        try {
+            for (Producto pr:productoList) {
+                Document doc = new Document(PageSize.A4, 50, 50, 100, 72);
+                PdfWriter writer = PdfWriter.getInstance(doc, new FileOutputStream("./Productos/" + pr.getNombre() + ".pdf")); // la ruta ./backup.pdf es la raiz del proyecto
+                doc.open();
+                // Convertimos la lista en un String con formato JSON
+                String text = new Gson().toJson(pr);
+                Paragraph p = new Paragraph(text);
+                p.setAlignment(Element.ALIGN_JUSTIFIED);
+                doc.add(p);
+                doc.close();
+            }
+
+
+
         }
         catch ( Exception e ) {
             e.printStackTrace();
