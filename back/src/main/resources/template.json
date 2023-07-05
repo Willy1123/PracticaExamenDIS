@@ -1,0 +1,20 @@
+[
+  {
+    "nombre": "producto",
+    "categoria": "categoria",
+    "precio": 3,
+    "EAN13": "322500532677"
+  },
+  {
+    "nombre": "madera",
+    "categoria": "mueble",
+    "precio": 10,
+    "EAN13": "0185388275285"
+  },
+  {
+    "nombre": "Armario",
+    "categoria": "mueble",
+    "precio": 40,
+    "EAN13": "0579341268726"
+  }
+]
