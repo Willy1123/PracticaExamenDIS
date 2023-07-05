@@ -20,6 +20,7 @@ import java.util.List;
 public class ProductoController {
 
     private JsonDAO jsonDAO = JsonDAO.getInstance();
+    private PDFManager pdf = new PDFManager();
 
     // GET
     @GetMapping("/Productos")
@@ -89,6 +90,9 @@ public class ProductoController {
         // guardamos el json con los cambios realizados
         jsonDAO.guardarJsonZBS(listaProd);
         System.out.println("guardado el registro " + listaProd.size() + " correctamente.");
+
+        // Guardamos lo generado en un pdf
+        pdf.generarPDF(listaProd);
 
         // si no hay ningún problema, devuelve un OK
         return new ResponseEntity<>(listaProd, HttpStatus.CREATED);
