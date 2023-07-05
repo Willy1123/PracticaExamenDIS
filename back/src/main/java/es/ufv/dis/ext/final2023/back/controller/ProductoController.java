@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,5 +60,37 @@ public class ProductoController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    // POST (ADD/UPDATE)
+    @PostMapping(value = "/Productos",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Añade o modifica un Producto al Sistema",
+            description = "Añade un nuevo producto si \"nuevoCampo\" es true (se dio al botón de crear nuevo en el front)" +
+                    "en el caso de que \"nuevoCampo\" sea false significa que simplemente estamos modificando un elemento existente")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ResponseEntity<List<Producto>> addProducto(@RequestBody Producto getDatosProducto) {
+
+        // creamos una lista tipo ZonaBasicaSalud donde guardamos el json leído.
+        List<Producto> listaProd = jsonDAO.leerJsonProductos();
+        // instanciamos el objeto nuevaZBS donde guardaremos los nuevos datos introducidos.
+        Producto nuevoProd = new Producto();
+
+        // añadimos los datos del objeto que vamos a crear
+        nuevoProd.setNombre(getDatosProducto.getNombre());
+        nuevoProd.setCategoria(getDatosProducto.getCategoria());
+        nuevoProd.setPrecio(getDatosProducto.getPrecio());
+        nuevoProd.setEAN13(getDatosProducto.getEAN13());
+
+        // añadimos el nuevo objeto a la lista
+        listaProd.add(nuevoProd);
+
+        // guardamos el json con los cambios realizados
+        jsonDAO.guardarJsonZBS(listaProd);
+        System.out.println("guardado el registro " + listaProd.size() + " correctamente.");
+
+        // si no hay ningún problema, devuelve un OK
+        return new ResponseEntity<>(listaProd, HttpStatus.CREATED);
     }
 }

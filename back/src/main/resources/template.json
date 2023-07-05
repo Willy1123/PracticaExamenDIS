@@ -10,5 +10,11 @@
     "categoria": "mueble",
     "precio": 10,
     "EAN13": "0185388275285"
+  },
+  {
+    "nombre": "Armario",
+    "categoria": "mueble",
+    "precio": 40,
+    "EAN13": "0579341268726"
   }
 ]
