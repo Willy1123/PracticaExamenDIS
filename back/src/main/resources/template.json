@@ -16,5 +16,11 @@
     "categoria": "mueble",
     "precio": 40,
     "EAN13": "0579341268726"
+  },
+  {
+    "nombre": "Nuevo Producto",
+    "categoria": "Categoría",
+    "precio": 10,
+    "EAN13": "1234567890123"
   }
 ]
